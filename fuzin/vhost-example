@@ -34,3 +34,5 @@
 
  #php_admin_value session.save_path '/home/www/bojan/zadruga-dobrina.si/session'
 </VirtualHost>
+
+
