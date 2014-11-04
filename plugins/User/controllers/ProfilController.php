@@ -23,10 +23,8 @@ class User_ProfilController extends Website_Controller_Plugin {
 			$this->_forward('login');	
 		}
 	}
-	
-	
 
-	
+
 	/**
 	 * Login
 	 */
@@ -39,22 +37,13 @@ class User_ProfilController extends Website_Controller_Plugin {
          	 // check if user is validated
              $this->getSession()->lastLoginEmail = $this->_getParam('memail');
          	 $users = Object_User::getByEmail($this->_getParam('memail'));
-         	 
-         	 
+
          	 foreach ($users as $user)
          	 	break;
          	 		
          	 if ($user && $user->getValidation() != 1) {
-         	 	
          	 	$this->view->err = 4;
-         	 	
-
-         	 	
          	 } else {
-         	 	
-
-         	 	 
-         	 	 
     	         if(User_Util::autenticate($this->_getParam('memail'), $this->_getParam('mpassword'), $this->_getParam('remember')) == 1) {
     	         	if($this->getSession()->loginRedirect) {
 		         		$this->_redirect($this->getSession()->loginRedirect);
@@ -317,8 +306,7 @@ class User_ProfilController extends Website_Controller_Plugin {
         else {
             $form = new User_Form_Profil(null, $user);
         } 
-            
-        
+
         if($request->isPost() && $form->isValid($request->getParams())) {
             
             $user->setName($request->getParam("name"));
