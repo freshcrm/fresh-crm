@@ -3,11 +3,10 @@ fresh-crm
 
 Fresh CRM
 
+It is an open source CRM project.
 
-Test
+In progress... installation instructions follows.
 
-This is new version
 
-This
+Project start: 2.11.2014
 
-ttt
