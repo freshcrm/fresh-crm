@@ -1,4 +1,14 @@
-<?php 
+<?php
+
+/**
+ * @author: Bojan Kovacec
+ * Class User_ProfilController
+ *
+ * Class is basis for user profile.
+ * It can be used on any personalized website.
+ *
+ */
+
 
 class User_ProfilController extends Website_Controller_Plugin {
 	
@@ -284,17 +294,15 @@ class User_ProfilController extends Website_Controller_Plugin {
 	
 	
 	/**
-	 * 
 	 * Logout
 	 */
-    public function logoutAction() 
+    public function logoutAction()
     {
         Zend_Auth::getInstance()->clearIdentity();
         Zend_Session::forgetMe();
         $this->_redirect('/');    
     }
-    
-    
+
     
     public function editAction() {
         $this->enableLayout();
@@ -335,8 +343,7 @@ class User_ProfilController extends Website_Controller_Plugin {
     public function boxAction() {
     	$this->enableLayout();
     	$request = $this->getRequest();
-    	
-    	
+
     	if($request->isPost()) {
     		$contract = Resource_Contract::getById($request->getParam("id"));
     		$contract->setPeriod($request->getParam("period"));
@@ -408,7 +415,5 @@ class User_ProfilController extends Website_Controller_Plugin {
     	} else {
     		$this->view->err = 1;
     	}
-    	
     }
-    
 }

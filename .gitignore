@@ -1,0 +1,14 @@
+pimcore
+website/var/log/*
+webiste/var/assets/*
+website/var/cache/*
+website/var/config/*.xml
+website/var/plugins/*
+website/var/recyclebin/*
+website/var/search/*
+website/var/system/*
+website/var/tmp/*
+website/var/version/assets/*
+website/var/version/document/*
+website/var/version/object/*
+website/var/webdav/*
