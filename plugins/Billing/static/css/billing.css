@@ -1,0 +1,53 @@
+.billing_menu_icon {
+    background: url(/plugins/Billing/static/img/coins16.png) left center no-repeat !important;
+}
+
+.delivered_icon {
+	background: url(/plugins/Billing/static/img/user_go.png) left center no-repeat !important;
+}
+
+.pickedup_icon {
+	background: url(/plugins/Billing/static/img/user_suit.png) left center no-repeat !important;
+}
+	
+.record_paid {
+	background-color: #C6F8C3;
+}
+
+.record_canceled {
+    background-color: #F8C3C7;
+}
+
+.confirm_icon {
+	background: url(/plugins/Billing/static/img/tick.png) left center no-repeat !important;
+}
+
+.cancel_icon {
+    background: url(/plugins/Billing/static/img/cancel.png) left center no-repeat !important;
+}
+
+#order_detail {
+	padding: 10px;
+}
+
+#order_detail table  {
+	width: 100%;
+}
+
+#order_detail h4 {
+	margin-top: 15px;
+}
+
+#order_detail table tr:nth-child(odd) {
+	background-color: #fff;
+}
+
+
+#order_detail table col:first-child {background: #E8E8E8; width: 250px;}
+
+#pdf a {
+	width: 64px;
+	height: 64px;
+	background: url(/plugins/Billing/static/img/pdf.png);
+	float: right;
+}

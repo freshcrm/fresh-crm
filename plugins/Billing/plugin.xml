@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<zend-config xmlns:zf="http://framework.zend.com/xml/zend-config-xml/1.0/">
+		<plugin>
+			<pluginName>Billing</pluginName>
+			<pluginDescription>Billing plugin</pluginDescription>
+            <pluginNiceName>Billing plugin</pluginNiceName>
+            <pluginIcon>/plugins/Billing/static/img/areyousure-logo.png</pluginIcon>
+            <pluginVersion>1.0.0</pluginVersion>
+            <pluginRevision>1</pluginRevision>
+            <pluginIframeSrc></pluginIframeSrc>
+			<pluginClassName>Billing_Plugin</pluginClassName>
+			<pluginIncludePaths>
+            	<path>/Billing/lib</path>
+            	<path>/Billing/models</path>
+			</pluginIncludePaths>
+			<pluginNamespaces>
+            	<namespace>Billing</namespace>
+            	<namespace>Resource</namespace>
+			</pluginNamespaces>
+			<pluginJsPaths>
+            	<path>/Billing/static/js/billing.js</path>
+			</pluginJsPaths>
+			<pluginCssPaths>
+				<path>/Billing/static/css/billing.css</path>
+			</pluginCssPaths>
+		</plugin>
+</zend-config>

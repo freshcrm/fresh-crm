@@ -1,0 +1,454 @@
+    
+    
+	
+    /**
+     * Deletes all comments for current target
+     */
+    public function deleteAllForTarget()
+    {
+        $this->getResource()->deleteAllForTarget();
+    }
+
+
+    /**
+     * Get Amounts per Rating Value
+     *
+     * @param Element_Interface $ratingTarget
+     * @param string $type
+     * @return array $data
+     */
+    public static function getRatingsAmountPerValueForTarget($ratingTarget, $type)
+    {
+        return Resource_Rating_Resource_Mysql::getRatingsAmountPerValueForTarget($ratingTarget, $type);
+    }
+
+    /**
+     * Get Average per Rating Value
+     * @param Pimcore_Model_WebResource_Interface $resource
+     * @param string $type
+     * @return integer $average
+     *
+     */
+    public static function getRatingAverageForTarget($ratingTarget, $type)
+    {
+        return Resource_Rating_Resource_Mysql::getRatingAverageForTarget($ratingTarget, $type);
+    }
+
+    /**
+     *
+     * @param Pimcore_Model_WebResource_Interface $ratingTarget
+     * @param string $type
+     * @param Object_Abstract $user
+     * @return boolean
+     */
+    public static function hasRated($ratingTarget, $type, $user)
+    {
+        return Resource_Rating_Resource_Mysql::hasRated($ratingTarget, $type, $user);
+    }
+
+    /**
+     *
+     * @param Pimcore_Model_WebResource_Interface $resource
+     * @param string $type
+     * @return integer $amount
+     *
+     */
+    public static function getRatingValueForTarget($ratingTarget, $type)
+    {
+        return Resource_Rating_Resource_Mysql::getRatingValueForTarget($ratingTarget, $type);
+    }
+
+
+    /**
+     * @param Pimcore_Model_WebResource_Interface $target
+     * @param string $type
+     * @param User $user
+     * @param integer $timestamp
+     * @return integer amount
+     *
+     */
+    public static function getRatingValueForTargetForUser($target, $type, $user, $timestamp = null)
+    {
+        return Resource_Rating_Resource_Mysql::getRatingValueForTargetForUser($target, $type, $user, $timestamp);
+    }
+
+
+    /**
+     * @param Pimcore_Model_WebResource_Interface $resource
+     * @param string $type
+     * @return integer $amount
+     */
+    public static function getRatingAmountForTarget($ratingTarget, $type)
+    {
+        return Resource_Rating_Resource_Mysql::getRatingAmountForTarget($ratingTarget, $type);
+    }
+
+
+    /**
+     * @param integer amount
+     * @param string $type
+     * @param string $classname
+     * @return Array $toptargets an array that contains the targetid and the rating amount
+     */
+    public static function getTopTargets($amount, $type, $classname = null)
+    {
+        return Resource_Rating_Resource_Mysql::getTopTargets($amount, $type, $classname);
+    }
+
+    /**
+     * @param string $classname
+     * @param string $type
+     * @return interger $amount
+     */
+    public static function getTotalRatingsForTargetType($type, $classname = null)
+    {
+        return Resource_Rating_Resource_Mysql::getTotalRatingsForTargetType($type, $classname);
+    }
+    */
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        /**
+     * @param Element_Interface $target
+     * @param string $type
+     * @param User $user
+     * @param integer $timestamp
+     * @return integer amount
+     *
+     */
+    public static function getRatingValueForTargetForUser($target, $type, $user, $timestamp = null)
+    {
+
+        if ($target != null and $user != null) {
+            try {
+                $db = Pimcore_Resource_Mysql::get("database");
+                $query = "SELECT sum(data) as amount, count(*) as total from plugin_rating_ratings where type = ? and ratingTargetId = ? and userId = ? ";
+                $params = array($type, $target->getId(), $user->getId());
+                if (!empty($timestamp)) {
+                    $query .= "and date = ? ";
+                    $params[] = $timestamp;
+                }
+                $data = $db->fetchRow($query, $params);
+                if ($data['amount']) {
+                    return $data['amount'] / $data['total'];
+                } else return 0;
+            }
+            catch (Exception $e) {
+
+            }
+        }
+    }
+
+    /**
+     * Get Amounts per Rating Value
+     *
+     * @param Element_Interface $ratingTarget
+     * @param string $type
+     * @return array $data
+     */
+    public static function getRatingsAmountPerValueForTarget($ratingTarget, $type)
+    {
+        try {
+            $db = Pimcore_Resource_Mysql::get("database");
+            $data = $db->fetchAll("SELECT data, count(data) as count from plugin_rating_ratings where type = ? and ratingTargetId = ? group by data ", array($type, $ratingTarget->getId()));
+            return $data;
+        }
+        catch (Exception $e) {
+
+        }
+
+    }
+
+
+    /**
+     * @param Element_Interface $ratingTarget
+     * @param string $type
+     * @return integer $amount
+     */
+    public static function getRatingValueForTarget($ratingTarget, $type)
+    {
+        try {
+            $db = Pimcore_Resource_Mysql::get("database");
+            $data = $db->fetchRow("SELECT sum(data) as amount from plugin_rating_ratings where type = ? and ratingTargetId = ?", array($type, $ratingTarget->getId()));
+            return $data['amount'];
+        }
+        catch (Exception $e) {
+
+        }
+
+    }
+
+    /**
+     * @param Element_Interface $ratingTarget
+     * @param string $type
+     * @return integer $amount
+     */
+    public static function getRatingAmountForTarget($ratingTarget, $type)
+    {
+        try {
+            $db = Pimcore_Resource_Mysql::get("database");
+            $data = $db->fetchRow("SELECT count(*) as amount from plugin_rating_ratings where type = ? and ratingTargetId = ?", array($type, $ratingTarget->getId()));
+            return $data['amount'];
+        }
+        catch (Exception $e) {
+
+        }
+    }
+
+    /**
+     * @param Element_Interface $ratingTarget
+     * @param string $type
+     * @return integer $amount
+     */
+    public static function getRatingAverageForTarget($ratingTarget, $type)
+    {
+        try {
+            $db = Pimcore_Resource_Mysql::get("database");
+            $data = $db->fetchRow("SELECT avg(data) as average from plugin_rating_ratings where type = ? and ratingTargetId = ?", array($type, $ratingTarget->getId()));
+            return $data['average'];
+        }
+        catch (Exception $e) {
+
+        }
+    }
+
+
+    /**
+     * @param string $classname
+     * @param string $type
+     * @return interger $amount
+     */
+    public static function getTotalRatingsForTargetType($type, $classname = null)
+    {
+        try {
+
+            $db = Pimcore_Resource_Mysql::get("database");
+            $query = "SELECT count(*) as amount from plugin_rating_ratings where type = ?  ";
+            $params = array($type);
+            if ($classname != null) {
+                $query .= "and classname = ? ";
+                $params = array($type, $classname);
+            }
+
+
+            $data = $db->fetchRow($query, $params);
+            return $data['amount'];
+
+
+        }
+        catch (Exception $e) {
+            Logger::log("Rating_Resource_Resource_Mysql: error fetching top targets from db", Zend_Log::ERR);
+        }
+    }
+
+
+    /**
+     * @param integer amount
+     * @param string $classname
+     * @return Array $toptargets an array that contains the targetid and the rating amount
+     */
+    public static function getTopTargets($amount, $type, $classname = null)
+    {
+        try {
+            if (is_numeric($amount)) {
+                $db = Pimcore_Resource_Mysql::get("database");
+                $query = "SELECT ratingTargetId, count(ratingTargetId) as amount from plugin_rating_ratings where type = ?  ";
+                $params = array($type);
+                if ($classname != null) {
+                    $query .= "and classname = ?";
+                    $params = array($type, $classname);
+                }
+                $query .= "group by ratingTargetId order by amount desc limit $amount ";
+                $data = $db->fetchAll($query, $params);
+
+
+                return $data;
+
+            } else {
+                Logger::log("Rating_Resource_Resource_Mysql: could not get top targets, because amount is not a valid numeric", Zend_Log::ERR);
+            }
+        }
+        catch (Exception $e) {
+            Logger::log("Rating_Resource_Resource_Mysql: error fetching top targets from db", Zend_Log::ERR);
+        }
+    }
+
+
+    /**
+     * @param Element_Interface $object
+     * @param string $type
+     * @return boolean $hasRated
+     */
+    public static function hasRated($ratingTarget, $type, $user)
+    {
+        try {
+            $db = Pimcore_Resource_Mysql::get("database");
+            $data = $db->fetchRow("SELECT count(*) as amount from plugin_rating_ratings where type = ? ratingTargetId = ? and userId = ?", array($type, $ratingTarget->getId(), $user->getO_Id()));
+            if ($data['amount'] > 0) {
+                return true;
+            } else return false;
+        }
+        catch (Exception $e) {
+            return false;
+        }
+    }
+
+
+    /**
+     * Get the data for the object from database for the given id
+     *
+     * @param integer $id
+     * @return void
+     */
+    public function getById($id)
+    {
+        try {
+            $data = $this->db->fetchRow("SELECT * FROM plugin_rating_ratings WHERE id = ?", $id);
+            $this->assignVariablesToModel($data);
+        }
+        catch (Exception $e) {
+        }
+    }
+
+
+    /**
+     * Get the data for the object from database for the given name
+     *
+     * @param string $name
+     * @return void
+     */
+    public function save()
+    {
+
+        if ($this->model->getId()) {
+            return $this->model->update();
+        }
+        return $this->create();
+    }
+
+    /**
+     * Create a new record for the object in database
+     *
+     * @return boolean
+     */
+    public function create()
+    {
+        try {
+
+            $this->db->insert("plugin_rating_ratings", array(
+                                                            "ratingTargetId" => $this->model->getRatingTargetId(),
+                                                            "userId" => $this->model->getUserId(),
+                                                            "data" => $this->model->getData(),
+                                                            "date" => $this->model->getDate(),
+                                                            "type" => $this->model->getType(),
+                                                            "classname" => $this->model->getClassname()
+                                                       ));
+
+            $this->model->setId($this->db->lastInsertId());
+
+            return $this->save();
+
+        }
+        catch (Exception $e) {
+            throw $e;
+        }
+
+    }
+
+    /**
+     * Save changes to database, it's an good idea to use save() instead
+     *
+     * @return void
+     */
+
+    public function update()
+    {
+        try {
+            $data["id"] = $this->model->getId();
+            $data["ratingTargetId"] = $this->model->getRatingTargetId();
+            $data["userId"] = $this->model->getUserId();
+            $data["date"] = $this->model->getDate();
+            $data["type"] = $this->model->getType();
+            $data["classname"] = $this->model->getClassname();
+
+
+            $this->db->update("plugin_rating_ratings", $data, "id='" . $this->model->getId() . "'");
+
+        }
+        catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Deletes object from database
+     *
+     * @return void
+     */
+
+    public function delete()
+    {
+        try {
+            $this->db->delete("plugin_rating_ratings", "id='" . $this->model->getId() . "'");
+
+        }
+        catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Deletes all comments for the current target
+     *
+     * @return void
+     */
+
+    public function deleteAllForTarget()
+    {
+        if ($this->model != null) {
+            $targetId = $this->model->getRatingTargetId();
+            if (!empty($targetId)) {
+
+                try {
+                    $this->db->delete("plugin_rating_ratings", "id='" . $this->model->getRatingTargetId() . "'");
+                }
+                catch (Exception $e) {
+                    logger::log(get_class($this) . ": Could not delete ratings for target id [" . $this->model->getRatingTargetId() . "]");
+                    throw $e;
+                }
+
+            }
+        }
+
+    
