@@ -125,6 +125,8 @@
         </p>
     </div>
 
+    <?= $this->areablock("content"); ?>
+
 </div>
 
 </body>

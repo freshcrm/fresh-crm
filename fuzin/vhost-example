@@ -1,43 +1,33 @@
 <VirtualHost *:80>
  ServerAdmin bojan@kovacec.net
 
- ServerName zadruga-dobrina.local
- ServerAlias www.zadruga-dobrina.si zadruga-dobrina.si
- DocumentRoot /home/bojan/PhpstormProjects/zadruga-dobrina
+ ServerName fresh-crm
+ DocumentRoot /home/bojan/projjects/fresh-crm
 
- <Directory /home/bojan/PhpstormProjects/zadruga-dobrina>
+ <Directory /home/bojan/projects/fresh-crm>
   AllowOverride All
   Require all granted
  </Directory>
 
  <IfModule mpm_itk_module>
-  AssignUserId bojan webpage
+  AssignUserId bojan bojan
  </IfModule>
 
- #php_admin_value upload_max_filesize 100M
- #php_admin_value file_uploads "On"
- #php_admin_value post_max_size 100M
- #php_admin_value request_order CGP
- #php_admin_value magic_quotes_gpc "Off"
- #php_admin_value session.auto_start "Off"
-
- #php_admin_value suhosin.executor.disable_eval "Off"
- #php_admin_value suhosin.session.encrypt "Off"
+ #php_admin_value upload_max_filesize 100M                                                                                                                                                                   
+ #php_admin_value file_uploads "On"                                                                                                                                                                          
+ #php_admin_value post_max_size 100M                                                                                                                                                                         
+ #php_admin_value request_order CGP                                                                                                                                                                          
+ #php_admin_value magic_quotes_gpc "Off"                                                                                                                                                                     
+ #php_admin_value session.auto_start "Off"                                                                                                                                                                   
+ #php_admin_value suhosin.executor.disable_eval "Off"                                                                                                                                                        
+ #php_admin_value suhosin.session.encrypt "Off"                                                                                                                                                              
 
  LanguagePriority si en
  ForceLanguagePriority Prefer Fallback
  AddDefaultCharset UTF-8
  AddCharset UTF-8 .utf8
 
- #ErrorLog /home/www/bojan/zadruga-dobrina.si/logs/zadruga-dobrina.si-error_log
- #CustomLog /home/www/bojan/zadruga-dobrina.si/logs/zadruga-dobrina.si-access_log common
-
- #php_admin_value session.save_path '/home/www/bojan/zadruga-dobrina.si/session'
+ #ErrorLog /home/bojan/logs/fresh-crm-error_log                                                                                                                                                              
+ #CustomLog /home/bojan/logs/fresh-crm-access_log common                                                                                                                                                     
+ #php_admin_value session.save_path '/home/bojan/logs/fresh-crm/session'                                                                                                                                     
 </VirtualHost>
-
-
-
-#comment
-
-
-test
